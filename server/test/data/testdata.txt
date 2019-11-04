@@ -1,7 +1,9 @@
-H-Milch				Aldi
-Rib-Eye Steak			Lidl
-Joghurt fettarm			Lidl
-Kartoffelsalat			Aldi
-Pfeffer schwarz "Wagner"	Kaufland
-Chips "Lays"			.
-Tegernseer Bier			Orterer
+what				where		count
+---
+H-Milch				Aldi		1
+Rib-Eye Steak			Lidl		1
+Joghurt fettarm			Lidl		4
+Kartoffelsalat			Aldi            .
+Pfeffer schwarz "Wagner"	Kaufland        .
+Chips "Lays"			.		2
+Kiste Tegernseer Bier		Orterer		1

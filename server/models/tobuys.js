@@ -9,3 +9,7 @@ const tobuySchema = new mongoose.Schema({
   done: Date  // null, wenn noch nicht erledigt
 });
 mongoose.model('Tobuy', tobuySchema);
+
+module.exports = {
+  schema: tobuySchema;
+};

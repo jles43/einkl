@@ -8,8 +8,9 @@ const tobuySchema = new mongoose.Schema({
   count: Number,
   done: Date  // null, wenn noch nicht erledigt
 });
-mongoose.model('Tobuy', tobuySchema);
+const tobuyModel = mongoose.model('Tobuy', tobuySchema);
 
 module.exports = {
-  schema: tobuySchema;
+  schema: tobuySchema,
+  model: tobuyModel
 };

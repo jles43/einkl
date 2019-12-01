@@ -2,8 +2,9 @@
 
 const mongoose = require('mongoose');
 const readline = require('readline');
+const cfg = require('../server.config.json');
 
-const dbURI = 'mongodb://localhost:9802/einkl-db';
+const dbURI = cfg.dburl+'/'+cfg.dbname;
 
 const connectHandler = function() {
   console.log(`Mongoose connected to ${dbURI}`);
@@ -53,7 +54,8 @@ mongoose.connection.on('connected', connectHandler);
 mongoose.connection.on('error', connectErrorHandler);
 mongoose.connection.on('disconnected', disconnectHandler);
 
-require('./tobuys');
+const tobuys = require('./tobuys');
 
 module.exports = {
+  Tobuy: tobuys.model
 };

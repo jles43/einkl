@@ -1,5 +1,7 @@
 'use strict';
 
+const db = require('./models/db');
+
 const data1 = [
   {
     what: 'H-Milch',
@@ -34,3 +36,22 @@ const data1 = [
     count: 1
   }
 ];
+
+const clear_data = function() {
+};
+
+const save_data = function(dataitem) {
+  console.log('save_data(', dataitem, ')');
+  var doc = new db.Tobuy(dataitem);
+  doc.save();
+};
+
+const populate_database = function(data) {
+  var i;
+  clear_data();
+  for (i=0; i<data.length; i++) {
+    save_data(data[i]);
+  }
+};
+
+populate_database(data1);

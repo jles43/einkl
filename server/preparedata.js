@@ -45,26 +45,35 @@ const dbconn = mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopolog
 const db = mongoose.connection;
 //mongoose.set('debug', true);
 
+const prepareData = async function () {
+  const Tobuy = tb.model;
+  try {
+    await Tobuy.deleteMany({}, function(err,doc) {
+      if (err) {
+        return console.error(err);
+      } else {
+        console.log('deleted', doc);
+      }
+    });
+    await Tobuy.insertMany(data1, function(err, docs) {
+      if (err) {
+        return console.error(err);
+      } else {
+        console.log('inserted', docs);
+        db.close();
+      }
+    });
+  } catch (ex) {
+    console.error('prepareData: error', ex);
+  }
+};
+
 db.on('error', console.error.bind(console, 'connection error:'));
 db.once('open', function() {
   console.log(`Mongoose connected to ${dbURI}`);
-  var Tobuy = tb.model;
-  Tobuy.deleteMany({}, function(err, doc) {
-    if (err) {
-      return console.error(err);
-    } else {
-      Tobuy.insertMany(data1, function(err, docs) {
-        if (err) {
-          return console.error(err);
-        } else {
-          //console.log('inserted', docs);
-          db.close();
-        }
-      });
-    }
-  });
 });
 db.on('close', function(err, conn) {
   console.log('connection closed');
 });
 
+prepareData();

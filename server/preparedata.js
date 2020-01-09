@@ -1,6 +1,9 @@
 'use strict';
 
-const db = require('./models/db');
+const config = require('./server.config.json');
+const mongoose = require('mongoose');
+const tb = require('./models/tobuys');
+const dbURI = config.dburl+'/'+config.dbname;
 
 const data1 = [
   {
@@ -37,21 +40,31 @@ const data1 = [
   }
 ];
 
-const clear_data = function() {
-};
 
-const save_data = function(dataitem) {
-  console.log('save_data(', dataitem, ')');
-  var doc = new db.Tobuy(dataitem);
-  doc.save();
-};
+const dbconn = mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true});
+const db = mongoose.connection;
+//mongoose.set('debug', true);
 
-const populate_database = function(data) {
-  var i;
-  clear_data();
-  for (i=0; i<data.length; i++) {
-    save_data(data[i]);
-  }
-};
+db.on('error', console.error.bind(console, 'connection error:'));
+db.once('open', function() {
+  console.log(`Mongoose connected to ${dbURI}`);
+  var Tobuy = tb.model;
+  Tobuy.deleteMany({}, function(err, doc) {
+    if (err) {
+      return console.error(err);
+    } else {
+      Tobuy.insertMany(data1, function(err, docs) {
+        if (err) {
+          return console.error(err);
+        } else {
+          //console.log('inserted', docs);
+          db.close();
+        }
+      });
+    }
+  });
+});
+db.on('close', function(err, conn) {
+  console.log('connection closed');
+});
 
-populate_database(data1);

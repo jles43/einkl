@@ -57,5 +57,6 @@ mongoose.connection.on('disconnected', disconnectHandler);
 const tobuys = require('./tobuys');
 
 module.exports = {
-  Tobuy: tobuys.model
+  Tobuy: tobuys.model,
+  driver: mongoose
 };

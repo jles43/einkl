@@ -1,4 +1,4 @@
 {
-	"dburl": "mongodb://192.168.15.12:9802",
+	"dburl": "mongodb://localhost:9802",
 	"dbname": "testeinkl"
 }
